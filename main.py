@@ -7,6 +7,9 @@ LINE = "I told my smart speaker a secret, and now it whispers ads for therapy in
 
 
 def main():
+    # Guard: never emit a blank entry.
+    if not LINE.strip():
+        raise ValueError("entry line must not be empty")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/tmp/out")
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as handle:
